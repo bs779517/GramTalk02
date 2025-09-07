@@ -11,7 +11,7 @@ const AdComponent: React.FC = () => {
       scriptWithOptions.type = 'text/javascript';
       scriptWithOptions.innerHTML = `
         atOptions = {
-          'key' : '0b4e1b965099d81ed22df22cdda339db',
+          'key' : '50d2008a3c80f369abc7314e4077a50c',
           'format' : 'iframe',
           'height' : 50,
           'width' : 320,
@@ -21,7 +21,7 @@ const AdComponent: React.FC = () => {
       
       const scriptInvoke = document.createElement('script');
       scriptInvoke.type = 'text/javascript';
-      scriptInvoke.src = '//www.highperformanceformat.com/0b4e1b965099d81ed22df22cdda339db/invoke.js';
+      scriptInvoke.src = '//www.highperformanceformat.com/50d2008a3c80f369abc7314e4077a50c/invoke.js';
 
       adRef.current.appendChild(scriptWithOptions);
       adRef.current.appendChild(scriptInvoke);
