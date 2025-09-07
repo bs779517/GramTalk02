@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { MessageSquare, Phone, Users, UserPlus, Menu, Bell } from 'lucide-react';
+import { MessageSquare, Phone, Users, UserPlus, Menu, Bell, Users2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -12,13 +12,14 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 
 // Mock data for demonstration
 const chats = [
   { id: '1', name: 'Alice', message: 'Hey, how are you?', time: '10:45 AM', unread: 2, avatar: 'https://picsum.photos/100/100?random=1' },
   { id: '2', name: 'Bob', message: 'See you tomorrow!', time: 'Yesterday', unread: 0, avatar: 'https://picsum.photos/100/100?random=2' },
-  { id: '3', name: 'Charlie', message: 'Project update is ready.', time: 'Friday', unread: 5, avatar: 'https://picsum.photos/100/100?random=3' },
+  { id: '3', name: 'Project Team', message: 'Charlie: Project update is ready.', time: 'Friday', unread: 5, avatar: 'https://picsum.photos/100/100?random=3', isGroup: true },
 ];
 
 const calls = [
@@ -34,7 +35,7 @@ const ChatsPanel = () => (
         <div className="flex items-center p-3 hover:bg-muted/50 rounded-lg cursor-pointer transition-colors">
           <Avatar className="h-12 w-12 mr-4">
             <AvatarImage src={chat.avatar} alt={chat.name} data-ai-hint="person portrait" />
-            <AvatarFallback>{chat.name.charAt(0)}</AvatarFallback>
+            <AvatarFallback>{chat.isGroup ? <Users2 /> : chat.name.charAt(0)}</AvatarFallback>
           </Avatar>
           <div className="flex-1 min-w-0">
             <div className="flex justify-between">
@@ -141,7 +142,9 @@ export default function MainPage() {
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
+                    <DropdownMenuItem asChild><Link href="/new-group">New Group</Link></DropdownMenuItem>
                     <DropdownMenuItem asChild><Link href="/settings/ringtones">Ringtone AI</Link></DropdownMenuItem>
+                    <DropdownMenuSeparator />
                     <DropdownMenuItem><Link href="/profile">Profile</Link></DropdownMenuItem>
                     <DropdownMenuItem><Link href="/login">Logout</Link></DropdownMenuItem>
                 </DropdownMenuContent>
