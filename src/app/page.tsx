@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
+import AdComponent from '@/components/AdComponent';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,6 +31,7 @@ const calls = [
 // Components for each panel
 const ChatsPanel = () => (
   <div className="p-2">
+    <AdComponent />
     {chats.map(chat => (
       <Link href={`/chat/${chat.id}`} key={chat.id} passHref>
         <div className="flex items-center p-3 hover:bg-muted/50 rounded-lg cursor-pointer transition-colors">
