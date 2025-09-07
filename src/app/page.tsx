@@ -28,6 +28,10 @@ const calls = [
     { id: '2', name: 'David', time: 'Yesterday, 8:00 PM', type: 'incoming', status: 'answered', avatar: 'https://picsum.photos/100/100?random=4' },
 ];
 
+const initialFriendRequests = [
+    { id: '1', name: 'David', avatar: 'https://picsum.photos/100/100?random=4' }
+];
+
 // Components for each panel
 const ChatsPanel = () => (
   <div className="p-2">
@@ -55,31 +59,47 @@ const ChatsPanel = () => (
   </div>
 );
 
-const UpdatesPanel = () => (
-  <div className="p-4 space-y-4">
-     <h2 className="text-lg font-semibold text-primary">Friend Requests</h2>
-     <Card>
-        <CardContent className="p-4 flex items-center justify-between">
-            <div className="flex items-center">
-                <Avatar className="h-10 w-10 mr-4">
-                    <AvatarImage src="https://picsum.photos/100/100?random=4" alt="David" data-ai-hint="person face" />
-                    <AvatarFallback>D</AvatarFallback>
-                </Avatar>
-                <div>
-                    <p className="font-semibold">David</p>
-                    <p className="text-sm text-muted-foreground">Wants to be your friend</p>
-                </div>
-            </div>
-            <div className="flex gap-2">
-                <Button size="sm">Accept</Button>
-                <Button size="sm" variant="outline">Decline</Button>
-            </div>
-        </CardContent>
-     </Card>
-     <h2 className="text-lg font-semibold text-primary mt-6">Status Updates</h2>
-     <p className="text-muted-foreground text-center py-8">No status updates yet.</p>
-  </div>
-);
+const UpdatesPanel = () => {
+    const [friendRequests, setFriendRequests] = useState(initialFriendRequests);
+
+    const handleRequest = (id: string, accept: boolean) => {
+        console.log(`Friend request ${id} ${accept ? 'accepted' : 'declined'}`);
+        setFriendRequests(prev => prev.filter(req => req.id !== id));
+    };
+
+    return (
+        <div className="p-4 space-y-4">
+            <h2 className="text-lg font-semibold text-primary">Friend Requests</h2>
+            {friendRequests.length > 0 ? (
+                friendRequests.map(request => (
+                    <Card key={request.id}>
+                        <CardContent className="p-4 flex items-center justify-between">
+                            <div className="flex items-center">
+                                <Avatar className="h-10 w-10 mr-4">
+                                    <AvatarImage src={request.avatar} alt={request.name} data-ai-hint="person face" />
+                                    <AvatarFallback>{request.name.charAt(0)}</AvatarFallback>
+                                </Avatar>
+                                <div>
+                                    <p className="font-semibold">{request.name}</p>
+                                    <p className="text-sm text-muted-foreground">Wants to be your friend</p>
+                                </div>
+                            </div>
+                            <div className="flex gap-2">
+                                <Button size="sm" onClick={() => handleRequest(request.id, true)}>Accept</Button>
+                                <Button size="sm" variant="outline" onClick={() => handleRequest(request.id, false)}>Decline</Button>
+                            </div>
+                        </CardContent>
+                    </Card>
+                ))
+            ) : (
+                <p className="text-muted-foreground text-center py-4">No new friend requests.</p>
+            )}
+            <h2 className="text-lg font-semibold text-primary mt-6">Status Updates</h2>
+            <p className="text-muted-foreground text-center py-8">No status updates yet.</p>
+        </div>
+    );
+};
+
 
 const CallsPanel = () => (
     <div className="p-2 space-y-2">
